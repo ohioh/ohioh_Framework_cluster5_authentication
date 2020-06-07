@@ -7,3 +7,4 @@ class User(AbstractUser):
     public_entity = models.BooleanField(default=False)
     analyst = models.BooleanField(default=False)
     grann_pad = models.BooleanField(default=False)
+    permission_granted = models.BooleanField(default=False)
