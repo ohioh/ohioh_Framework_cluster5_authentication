@@ -22,9 +22,12 @@ class UserRegistrationView(APIView):
     serializer_class = UserPostSerializer
 
     def post(self, request, *args, **kwargs):
+        password = request.data.get('password')
         serializer = UserPostSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            user = serializer.save()
+            user.set_password(password)
+            user.save()
             return Response({'msg': 'Successfully Registered'}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
