@@ -1,8 +1,8 @@
 
-from django.contrib import admin
 from django.urls import path
-from .views import GenerateKeyView
+from .views import GenerateKeyView, GetUserAccessKeyView
 
 urlpatterns = [
-    path('keys', GenerateKeyView.as_view(), name='key-list')
+    path('keys/create', GenerateKeyView.as_view(), name='create-key'),
+    path('keys/get', GetUserAccessKeyView.as_view(), name='get-key')
 ]

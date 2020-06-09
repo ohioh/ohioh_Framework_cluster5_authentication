@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from auth.settings import SECRET_KEY
 from key_generator.models import GeneratedKey
 from authentication.models import User
+from .serializers import AccessKeySerializer
 
 
 class GenerateKeyView(APIView):
@@ -39,3 +40,18 @@ class GenerateKeyView(APIView):
 
 
         return Response({'api_access_key': access_key})
+
+
+class GetUserAccessKeyView(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = self.request._user
+
+        if not user.permission_granted:
+            return Response({'msg': 'Admin not permitted you yet'}, status=status.HTTP_400_BAD_REQUEST)
+
+        generated_key = GeneratedKey.objects.filter(user__username=user.username).first()
+        serializer = AccessKeySerializer(generated_key)
+        return Response(serializer.data)
