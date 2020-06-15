@@ -55,3 +55,22 @@ class GetUserAccessKeyView(APIView):
         generated_key = GeneratedKey.objects.filter(user__username=user.username).first()
         serializer = AccessKeySerializer(generated_key)
         return Response(serializer.data)
+
+
+class VerifyKeyView(APIView):
+
+    def post(self, request):
+        try:
+            key_obj = GeneratedKey.objects.get(access_key=request.data.get('access_key'))
+        except GeneratedKey.DoesNotExist:
+            return Response({'msg': 'Invalid Key'})
+        
+        payload = {
+            'developer': key_obj.user.developer,
+            'public_entity': key_obj.user.public_entity,
+            'analyst': key_obj.user.analyst,
+            'grann_pad': key_obj.user.grann_pad,
+            'permission_granted': key_obj.user.permission_granted
+        }
+
+        return Response(payload)
