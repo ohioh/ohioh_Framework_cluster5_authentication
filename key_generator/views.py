@@ -63,7 +63,7 @@ class VerifyKeyView(APIView):
         try:
             key_obj = GeneratedKey.objects.get(access_key=request.data.get('access_key'))
         except GeneratedKey.DoesNotExist:
-            return Response({'msg': 'Invalid Key'})
+            return Response({'msg': 'Invalid Key'}, status=status.HTTP_400_BAD_REQUEST)
         
         payload = {
             'developer': key_obj.user.developer,
