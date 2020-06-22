@@ -14,7 +14,7 @@ SECRET_KEY = '^ywl=m)*nv^*asry3hry)-2=o&os^s$(o-_u2+ui*n-+4it!v!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['49.12.76.13']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -45,9 +45,7 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
-    "http://localhost:3001",
-    "http://138.201.152.59:3000",
-    "http://138.201.152.59:80"
+    "http://localhost:3001"
 ]
 
 AUTH_USER_MODEL = 'authentication.User'
