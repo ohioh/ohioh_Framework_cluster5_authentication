@@ -45,7 +45,9 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
-    "http://localhost:3001"
+    "http://localhost:3001",
+    "http://138.201.152.59:3000",
+    "http://138.201.152.59:80"
 ]
 
 AUTH_USER_MODEL = 'authentication.User'
